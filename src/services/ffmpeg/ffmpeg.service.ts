@@ -5,6 +5,7 @@ import { cloneDeep } from 'lodash';
 import { FFmpegConfigurations } from "./configurations/ffmpeg.configurations";
 import { CommandArg } from "../../models/interfaces/command-args.model";
 import { AppConfigurations } from "../../configurations/app.configurations";
+import { EventHandler } from "../../models/interfaces/event-handler.model";
 
 export class FFmpegStreamer {
     private spawnHelper: SpawnHelper;
@@ -14,14 +15,14 @@ export class FFmpegStreamer {
         const videoArg = args.find((arg: CommandArg) => arg.model_key === 'video_src');
         if (!!videoArg) {
             videoArg.value = data.video_src;
-// TODO replace if with error
+            // TODO replace if with error
         }
 
         const outputUrlArg = args.find((arg: CommandArg) => arg.model_key === 'outFileFormant');
         if (!!outputUrlArg) {
             outputUrlArg.value = `${AppConfigurations.facebookRTMPUrl}${AppConfigurations.streamKey}`;
 
-// TODO replace if with error
+            // TODO replace if with error
         }
 
         this.spawnHelper = new SpawnHelper(
@@ -32,7 +33,24 @@ export class FFmpegStreamer {
     }
 
     stream = () => {
-        this.spawnHelper.spawn();
+        const eventHandler: EventHandler = { name: 'exit', handler: this.exitHandler };
+        this.spawnHelper.spawn([eventHandler]);
+    }
+
+    private exitHandler = (code, signal) => {
+        if (code === 0) {
+            // video ended.
+        }
+        if (code) { // no video found ?
+            if (code === 1) {
+                // noVideo
+            }
+            console.error('Child exited with code', code)
+        } else if (signal) {
+            console.error('Child was killed with signal', signal);
+        } else {
+            console.log('Child exited okay');
+        }
     }
 }
 
