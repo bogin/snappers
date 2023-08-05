@@ -1,6 +1,7 @@
 import { CommandArg } from "../../../models/interfaces/command-args.model";
 
 export const FaceBookLiveDefualtArgs: CommandArg[] = [
+    { flags: ['-loglevel'], value: 'repeat+level+error', model_key: ''},
     { flags: ['-re', '-i'], value: '', model_key: 'video_src' },
     { flags: ['-c:v'], value: 'libx264', model_key: 'decoder' },
     { flags: ['-preset'], value: 'veryfast', model_key: 'preset' },
