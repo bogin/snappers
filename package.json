@@ -1,0 +1,19 @@
+{
+  "name": "snappers_poc",
+  "version": "1.0.0",
+  "description": "Shachar Bogin assigment",
+  "main": "streamer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bogin/snappers.git"
+  },
+  "author": "Shachar Bogin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bogin/snappers/issues"
+  },
+  "homepage": "https://github.com/bogin/snappers#readme"
+}
