@@ -4,7 +4,7 @@
   "description": "Shachar Bogin assigment",
   "main": "streamer.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/streamer.ts"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,14 @@
   "bugs": {
     "url": "https://github.com/bogin/snappers/issues"
   },
-  "homepage": "https://github.com/bogin/snappers#readme"
+  "homepage": "https://github.com/bogin/snappers#readme",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "nodemon": "^3.0.1",
+    "typedi": "^0.10.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
 }
