@@ -9,5 +9,7 @@ export const FaceBookLiveDefualtArgs: CommandArg[] = [
     { flags: ['-g'], value: '22', model_key: 'keyFreamRate' },
     { flags: ['-b:v'], value: '3000k', model_key: 'videoResolution' },
     { flags: ['-c:a'], value: 'aac', model_key: 'encoder' },
-    { flags: ['-f'], value: 'flv', model_key: 'outFileFormant' },
+    { flags: ['-f', 'flv'], value: '', model_key: 'outFileFormant' },
+
+    // TODO  change model_key logick
 ]
