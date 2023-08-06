@@ -26,8 +26,8 @@ export class SnappersService {
 
     stream = (stream: Stream) => {
         try {
-            const streamer = this.streamerFactory.create(stream);
-            streamer.stream();
+            const streamer = this.streamerFactory.create(stream.type);
+            streamer.stream(stream.data);
         } catch (e) {
             console.log('Could not stream', JSON.stringify(stream));
             console.log('Error: ', e);

@@ -1,58 +1,43 @@
-import { SpawnHelper } from "../../helpers/spawn.helper";
+import { CMDHelper } from "../../helpers/cmd.helper";
 import { StreamData } from "../../models/interfaces/stream-data.model";
 import { FaceBookLiveDefualtArgs } from "./configurations/default-command-args.configurations";
 import { cloneDeep } from 'lodash';
 import { FFmpegConfigurations } from "./configurations/ffmpeg.configurations";
 import { CommandArg } from "../../models/interfaces/command-args.model";
-import { AppConfigurations } from "../../configurations/app.configurations";
-import { EventHandler } from "../../models/interfaces/event-handler.model";
-import { Streamer } from "../../factories/streamer.factory";
+import { Command } from "../../models/interfaces/command.model";
+import { Streamer } from "../../classes/streamer.class";
 
 export class FFmpegStreamer extends Streamer {
-    private spawnHelper: SpawnHelper;
-    constructor(data: StreamData) {
+    private cmdHelper: CMDHelper = new CMDHelper();
+    constructor() {
         super();
-        const defaultCommandArgs = cloneDeep(FaceBookLiveDefualtArgs);
-        const args = cloneDeep(defaultCommandArgs);
-        const videoArg = args.find((arg: CommandArg) => arg.model_key === 'video_src');
-        if (!!videoArg) {
-            videoArg.value = data.video_src;
-            // TODO replace if with error
-        }
-
-        const outputUrlArg = args.find((arg: CommandArg) => arg.model_key === 'outFileFormant');
-        if (!!outputUrlArg) {
-            outputUrlArg.value = `${AppConfigurations.facebookRTMPUrl}${AppConfigurations.streamKey}`;
-
-            // TODO replace if with error
-        }
-
-        this.spawnHelper = new SpawnHelper(
-            FFmpegConfigurations.command_key,
-            args,
-            data.length_in_seconds,
-        )
     }
 
-    stream = () => {
-        const eventHandler: EventHandler = { name: 'exit', handler: this.exitHandler };
-        this.spawnHelper.spawn([eventHandler]);
+    stream = (data: StreamData) => {
+        const command = this.createStreamCommand(data);
+        this.cmdHelper.executeCommand(command);
     }
 
-    private exitHandler = (code, signal) => {
-        if (code === 0) {
-            // video ended.
-        }
-        if (code) { // no video found ?
-            if (code === 1) {
-                // noVideo
+    private createStreamCommand = (data: StreamData): Command => {
+        return this.cmdHelper.createCommand({
+            commandName: FFmpegConfigurations.command_key,
+            commandArgs: this.fillArgsFromData(cloneDeep(FaceBookLiveDefualtArgs), data, ['video_src', 'outFileFormant']),
+            eventHandlers: [{ name: 'exit', handler: FFmpegConfigurations.exitHandler }],
+            length_in_seconds: data.length_in_seconds,  
+        });
+    }
+
+    private fillArgsFromData = (args: CommandArg[], data: StreamData, modelKeys: string[]): CommandArg[] => {
+        modelKeys.forEach((modelKey: string) => {
+            const argument = args.find((arg: CommandArg) => arg.model_key === modelKey);
+            if (!!argument) {
+                argument.value = data[modelKey];
+            } else {
+                throw new Error(`FFmpeg service: could not set arg value for: ${modelKey}`);
             }
-            console.error('Child exited with code', code)
-        } else if (signal) {
-            console.error('Child was killed with signal', signal);
-        } else {
-            console.log('Child exited okay');
-        }
+        });
+
+        return args;
     }
 }
 

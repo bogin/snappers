@@ -1,4 +1,4 @@
 export interface EventHandler { 
     name: string; 
-    handler: (...args: string[]) => void;
+    handler: (...args: (string | number)[]) => void;
 }

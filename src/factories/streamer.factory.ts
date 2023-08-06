@@ -1,20 +1,15 @@
 import { StreamType } from "../models/enums/streamer.enum";
-import { Stream } from "../models/interfaces/stream.model";
 import { FFmpegStreamer } from "../services/ffmpeg/ffmpeg.service";
-
-export abstract class Streamer {
-    public abstract stream(): void;
-}
 
 export class StreamerFactory {
     
-    create = (stream: Stream) => {
-        switch (stream.type) {
+    create = (type: StreamType) => {
+        switch (type) {
             case StreamType.FacebookLive: {
-                return new FFmpegStreamer(stream.data);
+                return new FFmpegStreamer();
             }
             default: {
-                throw new Error(`Streamer type: ${stream.type} not supported`);
+                throw new Error(`Streamer type: ${type} not supported`);
             }
         }
     }
