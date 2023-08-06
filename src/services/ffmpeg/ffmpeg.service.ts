@@ -6,10 +6,12 @@ import { FFmpegConfigurations } from "./configurations/ffmpeg.configurations";
 import { CommandArg } from "../../models/interfaces/command-args.model";
 import { AppConfigurations } from "../../configurations/app.configurations";
 import { EventHandler } from "../../models/interfaces/event-handler.model";
+import { Streamer } from "../../factories/streamer.factory";
 
-export class FFmpegStreamer {
+export class FFmpegStreamer extends Streamer {
     private spawnHelper: SpawnHelper;
     constructor(data: StreamData) {
+        super();
         const defaultCommandArgs = cloneDeep(FaceBookLiveDefualtArgs);
         const args = cloneDeep(defaultCommandArgs);
         const videoArg = args.find((arg: CommandArg) => arg.model_key === 'video_src');
