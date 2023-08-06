@@ -21,7 +21,7 @@ export class FFmpegStreamer extends Streamer {
     private createStreamCommand = (data: StreamData): Command => {
         return this.cmdHelper.createCommand({
             commandName: FFmpegConfigurations.command_key,
-            commandArgs: this.fillArgsFromData(cloneDeep(FaceBookLiveDefualtArgs), data, ['video_src', 'outFileFormant']),
+            commandArgs: this.fillArgsFromData(cloneDeep(FaceBookLiveDefualtArgs), data, ['video_src', 'output_url']),
             eventHandlers: [{ name: 'exit', handler: FFmpegConfigurations.exitHandler }],
             length_in_seconds: data.length_in_seconds,  
         });
