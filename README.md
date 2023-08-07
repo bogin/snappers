@@ -7,7 +7,7 @@ This application stream sequence of videos by configurations.
 
 This project was developed on a PC environment. It utilizes a zipped version of the ffmpeg command, with its 'bin' folder added to the PC's environment variable path. 
 
-The application is designed for use on Windows; however, if you intend to use it on other platforms, please ensure that your terminal supports the 'cmd' command 'ffmpeg'.
+The application is designed for use on Windows; however, if you intend to use it on other platforms, please ensure that your terminal supports the `cmd` command `ffmpeg`.
 
 ## Installation
 1. Install ffmpeg: Follow the instructions at [How to Install FFmpeg on Windows](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/).
@@ -19,7 +19,7 @@ The application is designed for use on Windows; however, if you intend to use it
 ## Configuration
 
 
-To customize the application for your specific system, refer to the 'ffmpeg.configurations.ts' file. You can find the 'command key' in this file. If your system requires a specific syntax for the 'cmd' command, you can modify the command key from 'ffmpeg' to 'your_special_key ffmpeg' (e.g., 'sudo ffmpeg').
+To customize the application for your specific system, refer to the `ffmpeg.configurations.ts` file. You can find the `command_key` in this file. If your system requires a specific syntax for the 'cmd' command, you can modify the command key from 'ffmpeg' to 'your_special_key ffmpeg' (e.g., 'sudo ffmpeg').
 
 ### File ffmpeg.configurations.ts: 
 In this file I added the command name as discussed above, and the 
@@ -30,7 +30,7 @@ listerner events to the command, to handle errors I added the
 'exit' handler that can inform on success / error of the command.
 
 You can add more common event handlers - just add to this array
-object such as { name: 'event_name', handler: Function } and this
+object such as `{ name: 'event_name', handler: Function }` and this
 event will be automatilly regiter on and ffmpeg command exection. 
 
 
@@ -47,18 +47,17 @@ to out live bordcast automaticlly.
 
 here is example of a stream:
 type: value of StreamType enum - in the feture we could add types,
-data: 
-    video_src: path to video from root,
-    length_in_seconds: video stream time length,
-    output_url: facebookRTMPUrl/streamKey`
+    data: 
+        video_src: path to video from root,
+        length_in_seconds: video stream time length,
+        output_url: facebookRTMPUrl/streamKey`
 
 ### File facebook-live-default-command-args.configurations.ts:
    
-FFmpeg commands in cmd come with numerous flags, but they can appear messy and hard to manage. While constants like const videoSrcFlagCommand = '-re -i video_src' help, they may clutter and complicate things.
+FFmpeg commands in cmd come with numerous flags, but they can appear messy and hard to manage. While constants like `const videoSrcFlagCommand = '-re -i video_src'` help, they may clutter and complicate things.
 
-To enhance clarity and maintainability, I introduced a structured solution. I created an array in a file containing 
-{ flags_array, value, model_key } objects, 
-e.g., { flags: ['-re', '-i'], value: '', model_key: 'video_src' }.
+To enhance clarity and maintainability, I introduced a structured solution. I created an array in a file containing `{ flags_array, value, model_key }` objects, 
+e.g., `{ flags: ['-re', '-i'], value: '', model_key: 'video_src' }`.
 
 Some of the flags will have a predfined value set to them, and some will need to drive thier value from the stream data.
 the model_key property unsures that dynamic values will be filled from the configurationsin 'streams.configurations.ts' file
