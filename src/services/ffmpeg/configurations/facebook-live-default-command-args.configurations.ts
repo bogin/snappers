@@ -11,6 +11,4 @@ export const FaceBookLiveDefualtArgs: CommandArg[] = [
     { flags: ['-b:v'], value: '3000k', model_key: 'videoResolution' },
     { flags: ['-c:a'], value: 'aac', model_key: 'encoder' },
     { flags: ['-f', 'flv'], value: '', model_key: 'output_url' },
-
-    // TODO  change model_key logick
 ]

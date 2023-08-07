@@ -107,6 +107,8 @@ Have queries or seek guidance? The beacon of assistance awaits your signal!
 Author: Shachar Bogin
 
 ## Introduction
+This application stream sequence of videos by configurations.
+
 This project was developed on a PC environment. It utilizes a zipped version of the ffmpeg command, with its 'bin' folder added to the PC's environment variable path. The application is designed for use on Windows; however, if you intend to use it on other platforms, please ensure that your terminal supports the 'cmd' command 'ffmpeg'.
 
 ## Installation
@@ -149,7 +151,7 @@ To customize the application for your specific system, refer to the 'ffmpeg.conf
     the model_key property unsures that dynamic values will be filled from the configurationsin 'streams.configurations.ts' file
 
     Feel free to change, remove and create items in this array.
-    
+
     
 ### File ffmpeg.configurations.ts: 
     In this file I added the command name as discussed above, and the 

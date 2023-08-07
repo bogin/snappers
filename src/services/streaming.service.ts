@@ -16,23 +16,23 @@ export class StreamingService {
     startStreamingSequence = () => {
         let time_delay_in_sec = 0;
 
-        for (const streamConfiguration of this.streamsConfigurations) {
-            this.stream(streamConfiguration, time_delay_in_sec * 1000);
+        for (let streamConfiguration of this.streamsConfigurations) {
+            setTimeout(() => {
+                try {
+                    this.stream(streamConfiguration);
+                } catch (e) {
+                    console.log('Could not stream', JSON.stringify(streamConfiguration));
+                    console.log('Error: ', e);
+                }
+            }, time_delay_in_sec * 1000);
             time_delay_in_sec += streamConfiguration.data.length_in_seconds;
         }
     }
 
 
-    stream = (stream: Stream, time_delay_in_sec: number) => {
-        setTimeout(() => {
-            try {
-                const streamer = this.streamerFactory.create(stream.type);
-                streamer.stream(stream.data);
-            } catch (e) {
-                console.log('Could not stream', JSON.stringify(stream));
-                console.log('Error: ', e);
-            }
-        }, time_delay_in_sec * 1000);
+    stream = (stream: Stream) => {
+        const streamer = this.streamerFactory.create(stream.type);
+        streamer.stream(stream.data);
     }
 
 }
