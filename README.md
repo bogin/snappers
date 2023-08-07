@@ -70,10 +70,12 @@ Feel free to change, remove and create items in this array.
 
 ## Streamers:
 I implemented ffmpegStrimer as implamentation of ubstract class streamer.class.ts.
+```
 You can add your own custom streamer by:
     1. extend this class implemntation.
     2. add streamer type.
     3. Update streamer.factory.ts file create function with your new   streamer.
+```
 By doing so, and adding the configuration to streams.configurations.ts
 the system will automaticlly use the new streamer.
 
