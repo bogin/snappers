@@ -14,30 +14,18 @@ export class FFmpegStreamer extends Streamer {
     }
 
     stream = (data: StreamData) => {
-        const command = this.createStreamCommand(data);
-        this.cmdHelper.executeCommand(command);
+        const streamToFaceBookCommand = this.createStreamCommand(data);
+        this.cmdHelper.executeCommand(streamToFaceBookCommand);
     }
 
     private createStreamCommand = (data: StreamData): Command => {
         return this.cmdHelper.createCommand({
             commandName: FFmpegConfigurations.command_key,
-            commandArgs: this.fillArgsFromData(cloneDeep(FaceBookLiveDefualtArgs), data, ['video_src', 'output_url']),
+            commandArgs: cloneDeep(FaceBookLiveDefualtArgs),
+            data,
             eventHandlers: [{ name: 'exit', handler: FFmpegConfigurations.exitHandler }],
             length_in_seconds: data.length_in_seconds,  
         });
-    }
-
-    private fillArgsFromData = (args: CommandArg[], data: StreamData, modelKeys: string[]): CommandArg[] => {
-        modelKeys.forEach((modelKey: string) => {
-            const argument = args.find((arg: CommandArg) => arg.model_key === modelKey);
-            if (!!argument) {
-                argument.value = data[modelKey];
-            } else {
-                throw new Error(`FFmpeg service: could not set arg value for: ${modelKey}`);
-            }
-        });
-
-        return args;
     }
 }
 

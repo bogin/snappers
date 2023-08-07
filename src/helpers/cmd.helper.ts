@@ -13,12 +13,12 @@ export class CMDHelper {
 
     constructor() {}
 
-    createCommand = (data: { commandName: string, commandArgs: CommandArg[], eventHandlers?: EventHandler[], length_in_seconds?: number}): Command => {
+    createCommand = (command: { commandName: string, commandArgs: CommandArg[], data: any; eventHandlers?: EventHandler[], length_in_seconds?: number}): Command => {
         return { 
-            name: data.commandName,
-            args: this.getArgsAsStringArray(data.commandArgs),
-            length_in_seconds: data.length_in_seconds,
-            eventHandlers: data.eventHandlers
+            name: command.commandName,
+            args: this.getArgsAsStringArray(this.fillArgsFromData(command.commandArgs, command.data)),
+            length_in_seconds: command.length_in_seconds,
+            eventHandlers: command.eventHandlers
         };
     }
 
@@ -30,6 +30,15 @@ export class CMDHelper {
         }
     }
 
+    private fillArgsFromData = (args: CommandArg[], data: any): CommandArg[] => {
+        args.forEach((argument: CommandArg) => {
+            if (!!argument.model_key && data[argument.model_key]) {
+                argument.value = data[argument.model_key];
+            }
+        });
+
+        return args;
+    }
 
     private setProcessLength = (process: ChildProcessWithoutNullStreams, processLifeLengthInSec: number) => {
         setTimeout(() => {
