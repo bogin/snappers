@@ -80,3 +80,9 @@ By doing so, and adding the configuration to streams.configurations.ts
 the system will automaticlly use the new streamer.
 
 Feel free to reach out if you have any questions or need further assistance!
+
+
+Additional sources: 
+
+1. [FFmpeg Main Options](https://ffmpeg.org/ffmpeg.html#Main-options)
+2. [Encoding for Streaming Sites](http://trac.ffmpeg.org/wiki/EncodingForStreamingSites)
