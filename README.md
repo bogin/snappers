@@ -47,10 +47,10 @@ to out live bordcast automaticlly.
 
 here is example of a stream:
 type: value of StreamType enum - in the feture we could add types,
-    data: 
-        video_src: path to video from root,
-        length_in_seconds: video stream time length,
-        output_url: facebookRTMPUrl/streamKey`
+-    data: 
+-        video_src: path to video from root,
+-        length_in_seconds: video stream time length,
+-        output_url: facebookRTMPUrl/streamKey`
 
 ### File facebook-live-default-command-args.configurations.ts:
    
