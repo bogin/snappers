@@ -1,6 +1,6 @@
 import { CMDHelper } from "../../helpers/cmd.helper";
 import { StreamData } from "../../models/interfaces/stream-data.model";
-import { FaceBookLiveDefualtArgs } from "./configurations/default-command-args.configurations";
+import { FaceBookLiveDefualtArgs } from "./configurations/facebook-live-default-command-args.configurations";
 import { cloneDeep } from 'lodash';
 import { FFmpegConfigurations } from "./configurations/ffmpeg.configurations";
 import { CommandArg } from "../../models/interfaces/command-args.model";
@@ -23,7 +23,7 @@ export class FFmpegStreamer extends Streamer {
             commandName: FFmpegConfigurations.command_key,
             commandArgs: cloneDeep(FaceBookLiveDefualtArgs),
             data,
-            eventHandlers: [{ name: 'exit', handler: FFmpegConfigurations.exitHandler }],
+            eventHandlers: FFmpegConfigurations.handlers,
             length_in_seconds: data.length_in_seconds,  
         });
     }

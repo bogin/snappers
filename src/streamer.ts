@@ -1,5 +1,7 @@
-import { SnappersService } from "./services/snappers.service";
-const snappersHomeAssignmentService = new SnappersService();
+import { Streams } from "./configurations/streams.configurations";
+import { StreamingService } from "./services/streaming.service";
+
+const snappersHomeAssignmentService = new StreamingService(Streams);
 snappersHomeAssignmentService.startStreamingSequence();
 
 // TODO

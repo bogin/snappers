@@ -1,16 +1,15 @@
 import { cloneDeep } from 'lodash';
-import { Streams } from '../configurations/streams.configurations';
 import { StreamerFactory } from '../factories/streamer.factory';
 import { Stream } from '../models/interfaces/stream.model';
 
 
-export class SnappersService {
+export class StreamingService {
 
     streamsConfigurations: Stream[];
     streamerFactory: StreamerFactory;
 
-    constructor() {
-        this.streamsConfigurations = cloneDeep(Streams);
+    constructor(streams: Stream[]) {
+        this.streamsConfigurations = cloneDeep(streams);
         this.streamerFactory = new StreamerFactory();
     }
 
